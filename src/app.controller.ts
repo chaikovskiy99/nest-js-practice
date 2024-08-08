@@ -7,7 +7,7 @@ import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @CacheKey('players_key')
+  @CacheKey('test_key')
   @CacheTTL(500)
   @Get()
   async getHello() {

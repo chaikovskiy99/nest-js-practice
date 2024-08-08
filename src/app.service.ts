@@ -1,6 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Cache } from 'cache-manager';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
@@ -24,16 +22,16 @@ export class AppService {
       age: 21,
     },
   ];
-
-  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {
+  // @Inject(CACHE_MANAGER) private cacheManager: Cache
+   constructor() {
   }
 
   async getHello() {
-    await this.cacheManager.set('x', 'y', 1000);
-    await this.cacheManager.get('x');
-    await this.cacheManager.del('x');
-    await this.cacheManager.reset();
-    console.log('called');
+    // await this.cacheManager.set('x', 'y', 1000);
+    // await this.cacheManager.get('x');
+    // await this.cacheManager.del('x');
+    // await this.cacheManager.reset();
+    // console.log('called');
     return this.players;
   }
 }
