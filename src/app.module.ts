@@ -12,7 +12,8 @@ import { RedisClientOptions } from '@redis/client';
     isGlobal: true,
     store: redisStore.create({
       host: '127.0.0.1',
-      port: 6379,
+      port: 44933,
+      password: "h4VZZCYjUs0va2yoUY3"
     }), // need to install version 2 of cache-manager-redis-store to fix error
     max: 1000,
     ttl: 0,
