@@ -1,37 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { CacheInvalidationService } from './cache-invalidation/cache-invalidation.service';
+// import { CreatePlayerDTO } from './dto/createPlayerDTO';
 
 @Injectable()
 export class AppService {
-  private players: any = [
-    {
-      id: 123,
-      firstName: 'Lucas',
-      lastName: 'Bergval',
-      age: 19,
-    },
-    {
-      id: 124,
-      firstName: 'Archie',
-      lastName: 'Gray',
-      age: 20,
-    },
-    {
-      id: 124,
-      firstName: 'James',
-      lastName: 'Donley',
-      age: 21,
-    },
-  ];
-  // @Inject(CACHE_MANAGER) private cacheManager: Cache
-   constructor() {
-  }
+  private collection = [];
 
-  async getHello() {
+  // @Inject(CACHE_MANAGER) private cacheManager: Cache
+  constructor(
+    private readonly cacheInvalidationService: CacheInvalidationService,
+  ) {}
+
+  async findCity(cityName: string) {
+    if (cityName) {
+      return this.collection.find((c) => c.title === cityName);
+    }else {
+      return 'Welcome to players website!';
+    }
     // await this.cacheManager.set('x', 'y', 1000);
     // await this.cacheManager.get('x');
     // await this.cacheManager.del('x');
     // await this.cacheManager.reset();
     // console.log('called');
-    return this.players;
+    
+  }
+
+  async getAllCities() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // this.cacheInvalidationService.set('/cities', this.collection, 0);
+        return resolve(this.collection);
+        
+      }, 1000);
+    });
+  }
+
+  createCity(title: string) {
+    this.collection.push(title);
+    this.cacheInvalidationService.del('/cities');
+    return title;
   }
 }

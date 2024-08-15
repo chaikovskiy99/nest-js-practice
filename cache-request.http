@@ -1,4 +1,18 @@
 ### GET request to example server
 GET http://localhost:3000
 
-###
+
+### Send request with dynamic variables in request's body
+POST http://localhost:3000
+Content-Type: application/json
+
+{
+  "name": "James Maddison",
+  "careerGoals": "124",
+  "age": 22,
+  "currentTeam": "Tottenham Hotspurs",
+  "position": "AMF"
+}
+
+### GET request to example server
+GET http://localhost:3000/players
