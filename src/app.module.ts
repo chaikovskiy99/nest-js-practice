@@ -6,23 +6,37 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from '@redis/client';
 import { CustomInterceptor } from './custom-cache.interceptor';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import redisConfig from '../redis.config';
 import { CacheInvalidationModule } from './cache-invalidation/cache-invalidation.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [CacheModule.register<RedisClientOptions>({
-    isGlobal: true,
-    store: redisStore.create({
-      'host': '127.0.0.1',
-      // port: 44933,
-      // password: "h4VZZCYjUs0va2yoUY3",
-    }), // need to install version 2 of cache-manager-redis-store to fix error
-    max: 1000,
-    ttl: 0,
-  }), CacheInvalidationModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [redisConfig],
+    }),
+    CacheModule.registerAsync<RedisClientOptions>({
+      isGlobal: true,
+      useFactory: (config: ConfigService) => ({
+        store: redisStore.create({
+          host: config.get('redisConfig.host', { infer: true }),
+          port: config.get('redisConfig.port', { infer: true }),
+          password: config.get<number>('redisConfig.password'),
+          // port: 44933,
+          // password: "h4VZZCYjUs0va2yoUY3",
+        }), // need to install version 2 of cache-manager-redis-store to fix error
+        max: 1000,
+        ttl: 0,
+      }),
+
+      inject: [ConfigService],
+    }), CacheInvalidationModule, UsersModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_INTERCEPTOR,
-    useClass:CustomInterceptor,
+    useClass: CustomInterceptor,
   }],
 })
 export class AppModule {

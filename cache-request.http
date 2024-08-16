@@ -7,12 +7,23 @@ POST http://localhost:3000
 Content-Type: application/json
 
 {
-  "name": "James Maddison",
-  "careerGoals": "124",
-  "age": 22,
-  "currentTeam": "Tottenham Hotspurs",
-  "position": "AMF"
+  "title": "Moscow"
 }
 
 ### GET request to example server
-GET http://localhost:3000/players
+GET http://localhost:3000/cities
+
+
+### Send request with dynamic variables in request's body
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "email":"dsdas",
+  "fullName": "dkfskdfj",
+  "password": "233"
+}
+
+### GET request with a header
+GET http://localhost:3000/api/users
+Accept: application/json
