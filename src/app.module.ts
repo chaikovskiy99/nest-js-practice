@@ -10,9 +10,21 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import redisConfig from '../redis.config';
 import { CacheInvalidationModule } from './cache-invalidation/cache-invalidation.module';
 import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoffeeModule } from './coffee/coffee.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      password: 'pass123',
+      port: 5432,
+      username: 'postgres',
+      autoLoadEntities: true,
+      synchronize: true,
+      database: 'postgres'
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [redisConfig],
@@ -32,7 +44,7 @@ import { UsersModule } from './users/users.module';
       }),
 
       inject: [ConfigService],
-    }), CacheInvalidationModule, UsersModule],
+    }), CacheInvalidationModule, UsersModule, CoffeeModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_INTERCEPTOR,

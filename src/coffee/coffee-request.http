@@ -1,0 +1,36 @@
+# Create a new coffee entry
+POST http://localhost:3000/coffee
+Content-Type: application/json
+
+{
+  "name": "Latte",
+  "brand": "Starbucks",
+  "flavors": ["vanilla", "hazelnut"]
+}
+
+###
+
+# Get all coffee entries
+GET http://localhost:3000/coffee
+
+###
+
+# Get a single coffee entry by ID
+GET http://localhost:3000/coffee/1
+
+###
+
+# Update a coffee entry by ID
+PATCH http://localhost:3000/coffee/1
+Content-Type: application/json
+
+{
+  "name": "Cappuccino",
+  "brand": "Starbucks",
+  "flavors": ["chocolate"]
+}
+
+###
+
+# Delete a coffee entry by ID
+DELETE http://localhost:3000/coffee/1
