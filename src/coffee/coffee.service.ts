@@ -31,7 +31,7 @@ export class CoffeeService {
   async update(id: number, updateCoffeeDto: UpdateCoffeeDto) {
     const coffee = await this.coffeeRepository.preload({ id: id, ...updateCoffeeDto });
     if (!coffee) throw new NotFoundException(`Coffee with #${id} not found!`);
-    await this.coffeeRepository.save(coffee);
+    return await this.coffeeRepository.save(coffee);
   }
 
   async remove(id: number) {
