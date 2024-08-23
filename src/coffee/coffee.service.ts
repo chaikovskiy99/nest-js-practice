@@ -14,6 +14,7 @@ export class CoffeeService {
   constructor(
     @InjectRepository(Coffee)
     private readonly coffeeRepository: Repository<Coffee>,
+    @InjectRepository(FlavorEntity)
     private readonly flavourRepository: Repository<FlavorEntity>,
     private readonly dataSource: DataSource,
   ) {
@@ -85,5 +86,4 @@ export class CoffeeService {
       await queryRunner.release();
     }
   }
-
 }

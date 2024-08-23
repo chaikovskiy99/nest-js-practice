@@ -15,16 +15,17 @@ import { CoffeeModule } from './coffee/coffee.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      password: 'pass123',
-      port: 5432,
-      username: 'postgres',
-      autoLoadEntities: true,
-      synchronize: true,
-      database: 'postgres'
-    }),
+    TypeOrmModule.forRoot(
+      {
+        type: 'postgres',
+        host: 'localhost',
+        password: 'pass123',
+        port: 5432,
+        username: 'postgres',
+        autoLoadEntities: true,
+        synchronize: true,
+        database: 'postgres',// }
+    ),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [redisConfig],
