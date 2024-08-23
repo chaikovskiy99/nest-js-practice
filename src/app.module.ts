@@ -24,7 +24,8 @@ import { CoffeeModule } from './coffee/coffee.module';
         username: 'postgres',
         autoLoadEntities: true,
         synchronize: true,
-        database: 'postgres',// }
+        database: 'postgres',
+      },
     ),
     ConfigModule.forRoot({
       isGlobal: true,

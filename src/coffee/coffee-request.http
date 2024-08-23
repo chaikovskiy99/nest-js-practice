@@ -12,7 +12,7 @@ Content-Type: application/json
 
 # Get all coffee entries
 GET http://localhost:3000/coffee
-
+Authorization: jjkfdfwlekwr
 ###
 
 # Get a single coffee entry by ID
