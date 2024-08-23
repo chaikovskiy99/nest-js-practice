@@ -3,3 +3,4 @@ export class CreateCoffeeDto {
   brand: string;
   flavors: string[]
 }
+
